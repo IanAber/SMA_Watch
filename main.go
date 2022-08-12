@@ -278,7 +278,7 @@ func processLoop() {
 		fmt.Println("SMA Watch monitors the Sunny Boy inverters at Cedar Technology")
 	}
 
-	db, err := sql.Open("mysql", fmt.Sprintf("$s:%s@tcp(%s)/%s", dbLogin, dbPassword, dbServer, dbDatabase))
+	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s)/%s", dbLogin, dbPassword, dbServer, dbDatabase))
 	// defer the close till after the main function has finished executing
 	defer func() {
 		if err := db.Close(); err != nil {
