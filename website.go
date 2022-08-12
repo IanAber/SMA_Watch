@@ -28,7 +28,7 @@ func getValues(w http.ResponseWriter, _ *http.Request) {
 	}
 	panels.TotalPower = total
 	if body, err := json.Marshal(&panels); err != nil {
-		ReturnJSONError(w, "Solar Panels", err, http.StatusInternalServerError, true)
+		ReturnJSONError(w, "Solar Panel Values", err, http.StatusInternalServerError, true)
 	} else {
 		if _, err := fmt.Fprintf(w, string(body)); err != nil {
 			log.Println(err)

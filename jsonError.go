@@ -55,6 +55,7 @@ func (j *JSONError) ReturnError(w http.ResponseWriter, retCode int) {
 	}
 }
 
+// ReturnJSONError returns an error object to the WEB caller as a JSON object
 func ReturnJSONError(w http.ResponseWriter, device string, err error, httpReturnCode int, bLog bool) {
 	var jErr JSONError
 
@@ -67,6 +68,7 @@ func ReturnJSONError(w http.ResponseWriter, device string, err error, httpReturn
 	}
 }
 
+// ReturnJSONErrorString returns a string to the WEB caller as a json error payload
 //func ReturnJSONErrorString(w http.ResponseWriter, device string, errStr string, httpReturnCode int, bLog bool) {
 //	var jErr JSONError
 //

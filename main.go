@@ -45,8 +45,12 @@ type CurrentValues struct {
 }
 
 var (
-	panels  CurrentValues
-	verbose bool
+	panels     CurrentValues
+	verbose    bool
+	dbLogin    string
+	dbPassword string
+	dbDatabase string
+	dbServer   string
 )
 
 func init() {
@@ -274,7 +278,7 @@ func processLoop() {
 		fmt.Println("SMA Watch monitors the Sunny Boy inverters at Cedar Technology")
 	}
 
-	db, err := sql.Open("mysql", "pi:7444561@tcp(localhost:3306)/logging")
+	db, err := sql.Open("mysql", fmt.Sprintf("$s:%s@tcp(%s)/%s", dbLogin, dbPassword, dbServer, dbDatabase))
 	// defer the close till after the main function has finished executing
 	defer func() {
 		if err := db.Close(); err != nil {
@@ -377,8 +381,14 @@ func processLoop() {
 
 func init() {
 	var port int
+
 	flag.IntVar(&port, "port", 8081, "Port number for the WEB interface")
+	flag.StringVar(&dbLogin, "dblogin", "logger", "Database login id")
+	flag.StringVar(&dbPassword, "dbpwd", "logger", "Database login password")
+	flag.StringVar(&dbDatabase, "Database Name", "logging", "Name of the database")
+	flag.StringVar(&dbServer, "dbserver", "localhost:3306", "Database server and port")
 	flag.Parse()
+
 	log.SetFlags(log.Lshortfile | log.LstdFlags)
 
 	go setUpWebSite(port)
